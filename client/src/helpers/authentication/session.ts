@@ -14,7 +14,7 @@ const cookie = {
 
 const key = 'zujotnjscdktsuda';
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: User) {
 	return new SignJWT(payload).setProtectedHeader({ alg: 'HS256'}).setIssuedAt().setExpirationTime('1day').sign(new TextEncoder().encode(key));
 }
 
@@ -23,6 +23,7 @@ export async function decrypt(session: string) {
         const { payload } = await jwtVerify(session, new TextEncoder().encode(key), { algorithms: ['HS256'], });
         return payload;
     } catch (error) {
+        console.log(error);
         return null;
     }
 }
@@ -40,7 +41,7 @@ export async function verifySession() {
 
     const payload = await decrypt(token) as unknown;
     const user = payload as User;
-    
+
     return user || null;
 }
 
