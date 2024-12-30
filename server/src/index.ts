@@ -7,7 +7,6 @@ import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './router';
-import api from './helpers/api';
 
 const app = express();
 
@@ -22,13 +21,13 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 const server = http.createServer(app);
-const { SERVER_HOST, SERVER_PORT } = process.env;
+const { SERVER_HOST, PORT } = process.env;
 
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once('open', () => {
-	server.listen(SERVER_PORT, () => {
-		console.log(`server listened on ${SERVER_HOST}:${SERVER_PORT}`);
+	server.listen(PORT, () => {
+		console.log(`server listened on ${SERVER_HOST}:${PORT}`);
 	})
 });
 
