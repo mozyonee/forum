@@ -1,0 +1,15 @@
+import express from 'express';
+import { getPosts, getReplies, searchPosts, create, remove, like, repost } from '../controllers/posts';
+import { isAuthenticated, isOwner } from '../middlewares';
+
+export default (router: express.Router) => {
+	router.get('/posts', getPosts);
+	router.get('/posts/replies', getReplies);
+	router.get('/posts/search', searchPosts);
+
+	router.post('/posts', create);
+	router.patch('/posts/like', like);
+	router.patch('/posts/repost', repost);
+
+	router.delete('/posts', remove);
+};
