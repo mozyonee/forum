@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUser, getUserByEmail } from '../models/users';
+import { createUser, getUserByEmail, getUserByUsername } from '../models/users';
 import { authentication, random } from '../helpers';
 import { get } from 'lodash';
 
@@ -13,8 +13,12 @@ export const register = async (req: Request, res: Response) => {
 		const { email, password, username } = req.body;
 
 		if(!email || !password || !username) return res.sendStatus(400);
-		const existingUser = await getUserByEmail(email);
-		if(existingUser) return res.sendStatus(400);
+
+		const existingEmail = await getUserByEmail(email);
+		const existingUsername = await getUserByUsername(username);
+		
+		if(existingEmail || existingUsername) return res.sendStatus(400);
+
 		const salt = random();
 		const user = await createUser({
 			email,
