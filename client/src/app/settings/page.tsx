@@ -23,12 +23,12 @@ export default function PostPage() {
 			<div className='text-center'>
 				<label htmlFor="">change email ({user.email})</label>
 				<form action={changeEmail} className='flex'>
-					<input type="email" name='email' required className='p-3 bg-transparent border border-white grow'/>
+					<input type="email" name='email' placeholder='email' required className='p-3 bg-transparent border border-white grow'/>
 					<input type="submit" className='p-3 bg-transparent border border-white' />
 				</form>
 				<label htmlFor="">change username ({user.username})</label>
 				<form action={changeUsername} className='flex'>
-					<input type="text" name='username' required className='p-3 bg-transparent border border-white grow'/>
+					<input type="text" name='username' placeholder='username' required className='p-3 bg-transparent border border-white grow'/>
 					<input type="submit" className='p-3 bg-transparent border border-white' />
 				</form>
 			</div>
