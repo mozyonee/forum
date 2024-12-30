@@ -12,7 +12,6 @@ const Header = () => {
 	const { user } = useUser();
 	const { logout } = useAuthHelpers();
 	
-	
 	const [parent, setParent] = useState('');
 	const path = usePathname().split('/');
 

@@ -6,14 +6,12 @@ export default async function middleware(req: NextRequest) {
 	const protectedGuests = ['/settings'];
 	const protectedUsers = ['/authenticate'];
 	const currentPath = req.nextUrl.pathname;
-
-
 	
 	const token = (await cookies()).get('session')?.value;
 	const session = token ? await decrypt(token) : null;
 
-	if(protectedGuests.includes(currentPath) && !session?.user) return NextResponse.redirect(new URL('/authenticate', req.nextUrl));
-	if(protectedUsers.includes(currentPath) && session?.user) return NextResponse.redirect(new URL('/', req.nextUrl));
+	if(protectedUsers.includes(currentPath) && session) return NextResponse.redirect(new URL('/', req.nextUrl));
+	if(protectedGuests.includes(currentPath) && !session) return NextResponse.redirect(new URL('/authenticate', req.nextUrl));
 
 	return NextResponse.next();
 }
