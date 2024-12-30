@@ -3,15 +3,17 @@ import { cookies } from 'next/headers'
 import { decrypt } from '@/helpers/authentication/session';
 
 export default async function middleware(req: NextRequest) {
-	const protectedRoutes = ['/settings'];
+	const protectedGuests = ['/settings'];
+	const protectedUsers = ['/authenticate'];
 	const currentPath = req.nextUrl.pathname;
-	const isProtectedRoute = protectedRoutes.includes(currentPath);
 
-	if (isProtectedRoute) {
-		const token = (await cookies()).get('session')?.value;
-		const session = token ? await decrypt(token) : null;
-		if (!session?.user) return NextResponse.redirect(new URL('/authenticate', req.nextUrl));
-	}
+
+	
+	const token = (await cookies()).get('session')?.value;
+	const session = token ? await decrypt(token) : null;
+
+	if(protectedGuests.includes(currentPath) && !session?.user) return NextResponse.redirect(new URL('/authenticate', req.nextUrl));
+	if(protectedUsers.includes(currentPath) && session?.user) return NextResponse.redirect(new URL('/', req.nextUrl));
 
 	return NextResponse.next();
 }
