@@ -7,7 +7,6 @@ import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './router';
-import { Server } from 'socket.io';
 import api from './helpers/api';
 
 const app = express();
@@ -24,26 +23,6 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 const { SERVER_HOST, SERVER_PORT } = process.env;
-const io = new Server(server, {
-	cors: {
-		origin: [process.env.CLIENT_URL, process.env.SERVER_URL],
-		methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
-		credentials: true
-	}
-});
-
-io.on('connection', socket => {
-	socket.on('register', data => {
-		api.post('/auth/register', data)
-			.then(response => {
-				socket.emit('registerDisplay', response)
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	})
-});
 
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI);
