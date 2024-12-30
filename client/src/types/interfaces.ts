@@ -3,7 +3,6 @@ interface User {
     email: string;
     username: string;
 	following: string[];
-	[key: string]: any;
 }
 
 interface Post {
