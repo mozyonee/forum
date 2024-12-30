@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useAuthHelpers } from "@/helpers/authentication/actions";
 import { useUser } from "@/helpers/authentication/context";
+import Link from "next/link";
 
 const Header = () => {
 	
@@ -26,7 +27,7 @@ const Header = () => {
 	return (
 		 <header className="flex p-6 justify-between items-center gap-5">
 			<nav className="flex gap-5">
-				<a href="/" className="border border-white p-2">home</a>
+				<Link href='/' className="border border-white p-2">home</Link>
 				{ parent &&
 					<a href={`/post/${parent}`} className="border border-white p-2">back</a>
 				}

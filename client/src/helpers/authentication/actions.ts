@@ -1,12 +1,11 @@
 import api from "../api";
-import { setCookie, deleteCookie } from "cookies-next";
 import { createSession, verifySession, deleteSession } from "./session";
 import { useUser } from "./context";
 
 export function useAuthHelpers() {
 	const { setUser } = useUser();
 
-	const register = async (formData: any) => {
+	const register = async (formData: FormData) => {
 		const data = {
 			username: formData.get('username'),
 			email: formData.get('email'),

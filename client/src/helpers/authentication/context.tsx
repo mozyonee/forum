@@ -1,14 +1,8 @@
 'use client'
 
-import { useState, useEffect, createContext, useContext, ReactNode, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, createContext, useContext, ReactNode } from "react";
 import { createSession, verifySession, deleteSession } from "./session";
-
-interface User {
-	[x: string]: any;
-	_id: string,
-	email: string,
-	username: string
-}
+import { User } from '@/types/interfaces';
 
 interface UserContextType {
 	user: User | null,

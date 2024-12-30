@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import api from "@/helpers/api";
 
 import PostComponent from '@/components/Post';
@@ -30,9 +30,9 @@ const Search = () => {
 		}
 	}, [text, selected]);
 
-	const handleChange = (event: any) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setText(event.target.value);
-	}
+	};
 
 	return (
 		<>
@@ -40,22 +40,22 @@ const Search = () => {
 				<a onClick={() => setSelected('accounts')} className={`${selected === 'accounts' && 'text-gray-500'}`}>accounts</a>
 				<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-gray-500'}`}>posts</a>
 			</div>
-			
-			<input type="text" className='w-full bg-transparent border border-white p-3' placeholder='search' value={text} onChange={handleChange} />
 
-			{ (accounts && selected === 'accounts') &&
+			<input type="text" className="w-full bg-transparent border border-white p-3" placeholder="search" value={text} onChange={handleChange} />
+
+			{(accounts && selected === 'accounts') &&
 				accounts.map((account, key) => (
 					<a href={`/account/${account._id}`} className="border border-white p-3 block" key={key}>{account.username}</a>
 				))
 			}
 
-			{ (posts && selected === 'posts') &&
+			{(posts && selected === 'posts') &&
 				posts.map((post, key) => (
 					<PostComponent post={post} setParents={setPosts} key={key} />
 				))
 			}
-			
-			{ (text && ((selected === 'accounts' && !accounts.length) || (selected === 'posts' && !posts.length))) && <p className='text-center'>No results found</p> }
+
+			{(text && ((selected === 'accounts' && !accounts.length) || (selected === 'posts' && !posts.length))) && <p className='text-center'>No results found</p>}
 		</>
 	);
 }

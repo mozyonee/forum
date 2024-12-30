@@ -3,8 +3,8 @@
 'server-only'
 
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
+import { User } from '@/types/interfaces';
 
 const cookie = {
 	name: 'session',
@@ -14,9 +14,10 @@ const cookie = {
 
 const secret = 'secret';
 
-export async function encrypt(user: any) {
+export async function encrypt(user: User) {
 	return jwt.sign({ user }, secret, { algorithm: 'HS256', expiresIn: '1d' });
 }
+
 export async function decrypt(session: string): Promise<JwtPayload | null> {
     try {
         const decrypted = jwt.verify(session, secret);
@@ -30,7 +31,7 @@ export async function decrypt(session: string): Promise<JwtPayload | null> {
     }
 }
 
-export async function createSession(user: any) {
+export async function createSession(user: User) {
 
 	const expires = new Date(Date.now() + cookie.duration);
 	const session = await encrypt(user);

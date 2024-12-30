@@ -1,16 +1,9 @@
 'use client'
+
 import { useAuthHelpers } from "@/helpers/authentication/actions";
 
-import { useState, useEffect } from 'react';
-import api from "@/helpers/api";
-import PostComponent from '@/components/Post';
-import Input from '@/components/Input';
-import { useParams } from 'next/navigation';
-import { Post } from '@/types/interfaces';
-
 export default function PostPage() {
-	const { register, login, logout, verify } = useAuthHelpers();
-
+	const { register, login } = useAuthHelpers();
 
 	return (
 		<div className="text-center flex flex-col gap-10">

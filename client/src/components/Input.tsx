@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import { useUser } from '@/helpers/authentication/context';
 import api from "@/helpers/api";
 
-import { User, Post } from '@/types/interfaces'
+import { Post } from '@/types/interfaces'
 
 interface InputProps {
 	parent: string | null;
@@ -25,7 +25,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 			.catch(error => console.log(error));
 	}
 
-	const handleTextChange = (event: any) => {
+	const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const textarea = event.target;
 		setText(textarea.value);
 	
