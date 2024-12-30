@@ -45,10 +45,10 @@ export default function Account() {
 
 			<div>
 				<div className='flex justify-center gap-5'>
-					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-gray-500'}`}>posts</a>
-					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'text-gray-500'}`}>replies</a>
-					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'text-gray-500'}`}>reposts</a>
-					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'text-gray-500'}`}>likes</a> }
+					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-neutral-500'}`}>posts</a>
+					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'text-neutral-500'}`}>replies</a>
+					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'text-neutral-500'}`}>reposts</a>
+					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'text-neutral-500'}`}>likes</a> }
 				</div>
 				<div>
 					{ posts.length ? 

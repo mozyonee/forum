@@ -37,8 +37,8 @@ const Search = () => {
 	return (
 		<>
 			<div className='flex justify-center gap-5'>
-				<a onClick={() => setSelected('accounts')} className={`${selected === 'accounts' && 'text-gray-500'}`}>accounts</a>
-				<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-gray-500'}`}>posts</a>
+				<a onClick={() => setSelected('accounts')} className={`${selected === 'accounts' && 'text-neutral-500'}`}>accounts</a>
+				<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-neutral-500'}`}>posts</a>
 			</div>
 
 			<input type="text" className="w-full bg-transparent border border-white p-3" placeholder="search" value={text} onChange={handleChange} />
