@@ -8,7 +8,7 @@ import { useUser } from "@/helpers/authentication/context";
 import Link from "next/link";
 
 const Header = () => {
-	
+
 	const { user } = useUser();
 	const { logout } = useAuthHelpers();
 	
@@ -24,7 +24,7 @@ const Header = () => {
 	});
 
 	return (
-		 <header className="flex p-6 justify-between items-center gap-5">
+		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>
 			<nav className="flex gap-5">
 				<Link href='/' className="border border-white p-2">home</Link>
 				{ parent &&
@@ -44,7 +44,7 @@ const Header = () => {
 				</nav>
 			: <>
 				{ path[path.length - 1] !== 'authenticate' &&
-					<nav>
+					<nav className="flex">
 						<a href="/authenticate" className="border border-white p-2">authenticate</a>
 					</nav>
 				}
