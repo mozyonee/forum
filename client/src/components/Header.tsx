@@ -22,7 +22,7 @@ const Header = () => {
 			.then(response => setParent(response.data.parent))
 			.catch(error => console.log(error));
 		}
-	}, []);
+	});
 
 	return (
 		 <header className="flex p-6 justify-between items-center gap-5">

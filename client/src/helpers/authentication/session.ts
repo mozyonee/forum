@@ -8,9 +8,9 @@ import { User } from '@/types/interfaces';
 
 const cookie = {
 	name: 'session',
-	options: { httpOnly: true, secure: true, sameSite: 'lax' as 'lax', path: '/' },
+	options: { httpOnly: true, secure: true, sameSite: 'lax', path: '/' },
 	duration: 24 * 60 * 60 * 1000
-}
+} as const;
 
 const secret = 'secret';
 
