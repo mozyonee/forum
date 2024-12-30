@@ -2,15 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--background: #ffffff;
-	--foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		--background: #ffffff;
+		--foreground: #171717;
+		--like: #b91c1c;
+		--repost: #15803d;
+		--follow: #1d4ed8;
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--background: #0a0a0a;
+			--foreground: #ededed;
+			--like: #f87171;
+			--repost: #4ade80;
+			--follow: #60a5fa;
+		}
 	}
 }
 
@@ -31,10 +39,10 @@ main {
 }
 
 a, button, input[type="submit"] {
-	transition: filter 0.25s ease-in-out;
+	transition: opacity 0.25s ease-in-out;
 }
 
 a:hover, button:hover, input[type="submit"]:hover {
-	filter: brightness(0.5);
+	opacity: 0.5;
 	cursor: pointer;
 }

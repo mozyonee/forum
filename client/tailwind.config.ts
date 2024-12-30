@@ -11,6 +11,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        like: "var(--like)",
+        repost: "var(--repost)",
+        follow: "var(--follow)"
       },
     },
   },

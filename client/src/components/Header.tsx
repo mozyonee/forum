@@ -26,26 +26,26 @@ const Header = () => {
 	return (
 		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>
 			<nav className="flex gap-5">
-				<Link href='/' className="border border-white p-2">home</Link>
+				<Link href='/' className="border border-foreground p-2">home</Link>
 				{ parent &&
-					<a href={`/post/${parent}`} className="border border-white p-2">back</a>
+					<a href={`/post/${parent}`} className="border border-foreground p-2">back</a>
 				}
-				<a href="/search" className="border border-white p-2">search</a>
+				<a href="/search" className="border border-foreground p-2">search</a>
 			</nav>
 			{ user ?
 				<nav className="flex gap-5">
-					<a onClick={logout} className="border border-white p-2">sign out</a>
+					<a onClick={logout} className="border border-foreground p-2">sign out</a>
 
 					{ (path[path.length - 2] === 'account' && path[path.length - 1] === user._id) ? 
-						<a href={`/settings`} className="border border-white p-2">settings</a>
+						<a href={`/settings`} className="border border-foreground p-2">settings</a>
 					:
-						<a href={`/account/${user._id}`} className="border border-white p-2">{user.username}</a>
+						<a href={`/account/${user._id}`} className="border border-foreground p-2">{user.username}</a>
 					}
 				</nav>
 			: <>
 				{ path[path.length - 1] !== 'authenticate' &&
 					<nav className="flex">
-						<a href="/authenticate" className="border border-white p-2">authenticate</a>
+						<a href="/authenticate" className="border border-foreground p-2">authenticate</a>
 					</nav>
 				}
 			</>}

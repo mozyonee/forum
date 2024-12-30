@@ -40,15 +40,15 @@ export default function Account() {
 			<div className='text-center'>
 				<h1>{account.username}</h1>
 
-				{ (user && user._id !== account._id) && <button onClick={follow} className={`${user.following?.includes(account._id) && 'text-blue-400'}`}>follow</button> }
+				{ (user && user._id !== account._id) && <button onClick={follow} className={`${user.following?.includes(account._id) && 'text-follow'}`}>follow</button> }
 			</div>
 
 			<div>
 				<div className='flex justify-center gap-5'>
-					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-neutral-500'}`}>posts</a>
-					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'text-neutral-500'}`}>replies</a>
-					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'text-neutral-500'}`}>reposts</a>
-					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'text-neutral-500'}`}>likes</a> }
+					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'opacity-50'}`}>posts</a>
+					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'opacity-50'}`}>replies</a>
+					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'opacity-50'}`}>reposts</a>
+					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'opacity-50'}`}>likes</a> }
 				</div>
 				<div>
 					{ posts.length ? 

@@ -41,11 +41,11 @@ const Search = () => {
 				<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-neutral-500'}`}>posts</a>
 			</div>
 
-			<input type="text" className="w-full bg-transparent border border-white p-3" placeholder="search" value={text} onChange={handleChange} />
+			<input type="text" className="w-full bg-transparent border border-foreground p-3" placeholder="search" value={text} onChange={handleChange} />
 
 			{(accounts && selected === 'accounts') &&
 				accounts.map((account, key) => (
-					<a href={`/account/${account._id}`} className="border border-white p-3 block" key={key}>{account.username}</a>
+					<a href={`/account/${account._id}`} className="border border-foreground p-3 block" key={key}>{account.username}</a>
 				))
 			}
 

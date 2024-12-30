@@ -82,22 +82,22 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParent = null, setPare
 	};
 	
 	return (
-		<div className='border border-white p-3 cursor-pointer' onClick={blockLink} onMouseEnter={() => hoverOuter(true)} onMouseLeave={() => hoverOuter(false)}>
+		<div className='border border-foreground p-3 cursor-pointer' onClick={blockLink} onMouseEnter={() => hoverOuter(true)} onMouseLeave={() => hoverOuter(false)}>
 			<div className="flex gap-3 justify-between">
 				<a href={`/account/${post.author?._id}`} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>{post.author?.username}</a>
 				<p>{format(new Date(post.date), 'HH:mm, dd/MM/yyyy')}</p>
 			</div>
 
-			<p className={`${(outerHover && !innerHover) && 'brightness-50'}`} style={{ transition: 'filter 0.25s ease-in-out' }} >{post.text}</p>
+			<p className={`${(outerHover && !innerHover) && 'opacity-50'}`} style={{ transition: 'opacity 0.25s ease-in-out' }} >{post.text}</p>
 
 			{user && (
 				<div className="flex gap-3 justify-between">
 					<div className="flex gap-3">
-						<button className={`${post.likes.includes(user._id) && 'text-red-400'}`}
+						<button className={`${post.likes.includes(user._id) && 'text-like'}`}
 							onClick={like} onMouseEnter={() => hoverInner(true)}	onMouseLeave={() => hoverInner(false)}>
 							like
 						</button>
-						<button className={`${post.reposts.includes(user._id) && 'text-green-400'}`}
+						<button className={`${post.reposts.includes(user._id) && 'text-repost'}`}
 							onClick={repost} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
 							repost
 						</button>
