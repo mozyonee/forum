@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--background: #ffffff;
+	--foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
+* {
+	overflow-wrap: break-word;
+}
+
+body {
+	background: var(--background);
+	color: var(--foreground);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+	margin: auto;
+	max-width: calc(640px + 25px);
+	padding: 25px;
+}
+
+a, button, input[type="submit"] {
+	transition: filter 0.25s ease-in-out;
+}
+
+a:hover, button:hover, input[type="submit"]:hover {
+	filter: brightness(0.5);
+	cursor: pointer;
+}
