@@ -1,7 +1,5 @@
 'use client'
 
-import api from "@/helpers/api";
-import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useAuthHelpers } from "@/helpers/authentication/actions";
 import { useUser } from "@/helpers/authentication/context";

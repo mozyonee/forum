@@ -3,7 +3,7 @@
 import api from "@/helpers/api";
 import { useUser } from "@/helpers/authentication/context";
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Post } from '@/types/interfaces';
 import { format } from 'date-fns';
 import { CommentIcon, LikeIcon, RepostIcon, ShareIcon, DeleteIcon } from "../../public/icons";
@@ -16,13 +16,7 @@ interface PostFunction {
 const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 	const { user } = useUser();
 	const router = useRouter();
-
-
-
-	
 	const path = usePathname().split('/');
-
-
 
 	const like = () => {
 		api.patch('/posts/like', { user, post })
