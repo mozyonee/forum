@@ -11,13 +11,13 @@ export default function PostPage() {
 	const params = useParams();
 	const id = params.id?.toString() || null;
 
-	const [post, setPost] = useState<Post | null>(null);
+	const [posts, setPosts] = useState<Post[]>([]);
 	const [replies, setReplies] = useState<Post[]>([]);
 
 	useEffect(() => {
 		const fetchPost = async () => {
-			await api.get(`/posts?parent=${id}`)
-				.then(response => setPost(response.data))
+			await api.get(`/posts/parents?parent=${id}`)
+				.then(response => setPosts(response.data))
 				.catch(error => console.log(error));
 
 			await api.get(`/posts/replies?parent=${id}`)
@@ -29,9 +29,11 @@ export default function PostPage() {
 
 	return (
 		<>
-			{post ? (
+			{posts ? (
 				<>
-					<PostComponent post={post} setParent={setPost} />
+					<div>
+						{[...posts].reverse().map((post, key) => <PostComponent post={post} setParents={setPosts} key={key} />)}
+					</div>
 					<Input parent={id} setParent={setReplies} />
 					<div>
 						{[...replies].reverse().map((reply, key) => <PostComponent post={reply} setParents={setReplies} key={key} />)}

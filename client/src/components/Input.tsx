@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 		{ user && 
 			<form onSubmit={createPost} className="flex">
 				<textarea name="text" placeholder="text" required value={text} onChange={handleTextChange} className="p-3 flex-1 bg-transparent border border-foreground resize-none overflow-hidden" />
-				<input type="submit" className="p-3 border border-foreground" />
+				<input type="submit" className="p-3 border border-foreground" value="send" />
 			</form>
 		}
 	</>;

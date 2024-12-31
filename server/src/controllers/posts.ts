@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getAllPosts, getPostByID, updatePostById, getPostsByParentId, createPost, deletePostById } from '../models/posts';
+import { getPostByID, getPostTreeByID, getPostsByParentId, createPost, updatePostById, deletePostById } from '../models/posts';
 import mongoose from 'mongoose';
 import { postModel } from '../models/posts';
 
@@ -11,7 +11,7 @@ const handleError = (res: Response, error: Error) => {
 export const getPosts = async (req: Request, res: Response) => {
 	try {
 		const parent = req.query.parent;
-		const result = parent ? await getPostByID(parent.toString()) : await getAllPosts();
+		const result = parent && await getPostByID(parent.toString());
 
 		if (!result) return res.sendStatus(404);
 		res.status(200).json(result);
@@ -19,6 +19,17 @@ export const getPosts = async (req: Request, res: Response) => {
 		handleError(res, error);
 	}
 };
+
+export const getParents = async (req: Request, res: Response) => {
+	try {
+		const parent = req.query.parent.toString() || null;
+		const result = await getPostTreeByID(parent);
+
+		res.status(200).json(result);
+	} catch (error) {
+		handleError(res, error);
+	}
+}
 
 export const getReplies = async (req: Request, res: Response) => {
 	try {
@@ -38,8 +49,7 @@ export const searchPosts = async (req: Request, res: Response) => {
 
 		res.status(200).json(posts).end();
 	} catch (error) {
-		console.error('Error searching posts:', error);
-		res.status(500).json({ message: 'Server error' });
+		handleError(res, error);
 	}
 };
 
@@ -85,7 +95,7 @@ export const like = async (req: Request, res: Response) => {
 	try {
 		const { user, post } = req.body;
 
-		const postData = await getPostByID(post._id).select('likes');
+		const postData = await getPostByID(post._id);
 		const likes = postData?.likes || [];
 
 		let updatedLikes;
@@ -107,7 +117,7 @@ export const repost = async (req: Request, res: Response) => {
 	try {
 		const { user, post } = req.body;
 
-		const postData = await getPostByID(post._id).select('reposts');
+		const postData = await getPostByID(post._id);
 		const reposts = postData?.reposts || [];
 
 		let updatedReposts;

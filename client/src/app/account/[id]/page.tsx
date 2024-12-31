@@ -13,12 +13,16 @@ export default function Account() {
 	const { user, setUser } = useUser();
 
 	const [account, setAccount] = useState<User | null>(null);
+	const [followers, setFollowers] = useState<string[]>([]);
 	const [posts, setPosts] = useState<Post[]>([]);
 	const [selected, setSelected] = useState('posts');
 
 	useEffect(() => {
 		api.get(`/users?user=${id}`)
 			.then(response => setAccount(response.data))
+			.catch(error => console.log(error));
+		api.get(`/users/followers?user=${id}`)
+			.then(response => setFollowers(response.data))
 			.catch(error => console.log(error));
 	}, []);
 
@@ -38,13 +42,17 @@ export default function Account() {
 	return <>
 		{account ? (<>
 			<div className='text-center'>
-				<h1>{account.username}</h1>
+				<h1 className='text-3xl font-bold'>{account.username}</h1>
 
-				{ (user && user._id !== account._id) && <button onClick={follow} className={`${user.following?.includes(account._id) && 'text-follow'}`}>follow</button> }
+				<p className='my-2'>{account.following.length} following, {followers.length} followers</p>
+
+				{ (user && user._id !== account._id) &&
+					<button onClick={follow} className={`${user.following?.includes(account._id) && 'text-follow'}`}>follow{user.following?.includes(account._id) &&  'ing'}</button>
+				}
 			</div>
 
 			<div>
-				<div className='flex justify-center gap-5'>
+				<div className='flex justify-center gap-5 my-5'>
 					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'opacity-50'}`}>posts</a>
 					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'opacity-50'}`}>replies</a>
 					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'opacity-50'}`}>reposts</a>

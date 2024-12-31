@@ -12,24 +12,12 @@ const Header = () => {
 	const { user } = useUser();
 	const { logout } = useAuthHelpers();
 	
-	const [parent, setParent] = useState('');
 	const path = usePathname().split('/');
-
-	useEffect(() => {
-		if(path[path.length - 2] === 'post') {
-			api.get(`/posts?parent=${path[path.length - 1]}`)
-			.then(response => setParent(response.data.parent))
-			.catch(error => console.log(error));
-		}
-	});
 
 	return (
 		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>
 			<nav className="flex gap-5">
 				<Link href='/' className="border border-foreground p-2">home</Link>
-				{ parent &&
-					<a href={`/post/${parent}`} className="border border-foreground p-2">back</a>
-				}
 				<a href="/search" className="border border-foreground p-2">search</a>
 			</nav>
 			{ user ?

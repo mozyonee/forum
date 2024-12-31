@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getUsers, getUserByID, getUserByEmail, getUserByUsername, updateUserById, deleteUserById } from "../models/users";
+import { getUsers, getUserByID, getUserByEmail, getUserByUsername, getFollowersByUserID, updateUserById, deleteUserById } from "../models/users";
 import { getPostsByUserID, getRepliesByUserID, getRepostsByUserID, getLikesByUserID } from "../models/posts";
 import mongoose from "mongoose";
 import { userModel } from "../models/users";
@@ -68,11 +68,22 @@ export const getUsersReposts = async (req: Request, res: Response) => {
 	}
 };
 
-
 export const getUsersLikes = async (req: Request, res: Response) => {
 	try {
 		const user = req.query.user;
 		const result = await getLikesByUserID(user.toString());
+
+		if (!result) return res.sendStatus(404);
+		res.status(200).json(result).end();
+	} catch(error) {
+		handleError(res, error)
+	}
+};
+
+export const getUsersFollowers = async (req: Request, res: Response) => {
+	try {
+		const user = req.query.user;
+		const result = await getFollowersByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
 		res.status(200).json(result).end();

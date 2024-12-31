@@ -13,7 +13,7 @@ const Home = () => {
 	useEffect(() => {
 		api.get(`/posts/replies?parent`)
 			.then(response => setPosts(response.data))
-			.catch(error => console.log(error));
+			.catch(error => console.error(error));
 	}, []);
 
 	return (

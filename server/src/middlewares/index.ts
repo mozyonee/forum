@@ -1,8 +1,6 @@
 import express from 'express';
 import  { get, merge } from 'lodash';
 
-import { getUserBySessionToken } from '../models/users';
-
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 	try {
 		// const sessionToken = req.cookies['session'];

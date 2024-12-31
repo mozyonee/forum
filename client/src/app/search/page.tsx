@@ -36,7 +36,7 @@ const Search = () => {
 
 	return (
 		<>
-			<div className='flex justify-center gap-5'>
+			<div className='flex justify-center gap-5 mb-5'>
 				<a onClick={() => setSelected('accounts')} className={`${selected === 'accounts' && 'text-neutral-500'}`}>accounts</a>
 				<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'text-neutral-500'}`}>posts</a>
 			</div>

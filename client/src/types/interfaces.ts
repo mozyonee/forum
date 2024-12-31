@@ -13,6 +13,7 @@ interface Post {
 	text: string;
 	likes: string[];
 	reposts: string[];
+	repliesCount: number;
 }
 
 export type { User, Post }
