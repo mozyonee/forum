@@ -78,7 +78,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 				
 				{ user && user._id === post.author?._id &&
 					<button onClick={remove} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-						<DeleteIcon />
+						<DeleteIcon classNames="fill-foreground" />
 					</button>
 				}
 			</div>
@@ -89,20 +89,20 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 					<div className="flex gap-3 justify-between">
 						<div className="flex gap-3">
 							<button className="flex items-center gap-1" onClick={like} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<LikeIcon classNames={`${post.likes?.includes(user._id) && 'fill-like'}`} />
+								<LikeIcon classNames={`${post.likes?.includes(user._id) ? 'fill-like' : 'fill-foreground'}`} />
 								<span>{post.likes?.length}</span>
 							</button>
 							<button className="flex items-center gap-1" onClick={repost} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<RepostIcon classNames={`${post.reposts?.includes(user._id) && 'fill-repost'}`} />
+								<RepostIcon classNames={`${post.reposts?.includes(user._id) ? 'fill-repost' : 'fill-foreground'}`} />
 								<span>{post.reposts?.length}</span>
 							</button>
 							<button className="flex items-center gap-1" onClick={() => router.push(`/post/${post._id}`)} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<CommentIcon />
+								<CommentIcon classNames="fill-foreground" />
 								<span>{post.repliesCount}</span>
 							</button>
 						</div>
 						<button className="flex items-center gap-1"	onClick={share} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-							<ShareIcon />
+							<ShareIcon classNames="fill-foreground" />
 						</button>
 					</div>
 			)}
