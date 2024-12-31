@@ -1,26 +1,25 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useAuthHelpers } from "@/helpers/authentication/actions";
 import { useUser } from "@/helpers/authentication/context";
 import Link from "next/link";
 
 const Header = () => {
 
 	const { user } = useUser();
-	const { logout } = useAuthHelpers();
 	
 	const path = usePathname().split('/');
+	console.log(path);
 
 	return (
 		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>
 			<nav className="flex gap-5">
-				<Link href='/' className="border border-foreground p-2">home</Link>
+				{ path[1] && <Link href='/' className="border border-foreground p-2">home</Link> }
 				<a href="/search" className="border border-foreground p-2">search</a>
 			</nav>
 			{ user ?
 				<nav className="flex gap-5">
-					<a onClick={logout} className="border border-foreground p-2">sign out</a>
+					
 
 					{ (path[path.length - 2] === 'account' && path[path.length - 1] === user._id) ? 
 						<a href={`/settings`} className="border border-foreground p-2">settings</a>

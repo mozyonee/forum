@@ -72,7 +72,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 		<div className='border border-foreground p-3 cursor-pointer' onClick={blockLink} onMouseEnter={() => hoverOuter(true)} onMouseLeave={() => hoverOuter(false)}>
 			<div className="flex gap-3 justify-between">
 				<div className="flex gap-2 items-center">
-					<a href={`/account/${post.author?._id}`} className="text-lg font-bold" onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>{post.author?.username}</a>
+					<a href={`/account/${post.author?._id}`} className="text-lg font-bold"  onClick={(event) => { event.stopPropagation(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>{post.author?.username}</a>
 					{ post.date && <p className="opacity-75 text-sm">{format(new Date(post.date), 'HH:mm, dd/MM/yyyy')}</p>}
 				</div>
 				
