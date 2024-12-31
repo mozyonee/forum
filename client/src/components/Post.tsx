@@ -3,7 +3,7 @@
 import api from "@/helpers/api";
 import { useUser } from "@/helpers/authentication/context";
 import { usePathname, useRouter } from 'next/navigation'
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { Post } from '@/types/interfaces';
 import { format } from 'date-fns';
 import { CommentIcon, LikeIcon, RepostIcon, ShareIcon, DeleteIcon } from "../../public/icons";
