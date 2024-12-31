@@ -21,8 +21,10 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 		data.author = user?._id || null;
 		data.parent = parent;
 		api.post('/posts', data)
-			.then(response => setParent((prevPosts) => [...prevPosts, response.data]))
-			.catch(error => console.log(error));
+			.then(response => {
+				setParent((prevPosts) => [...prevPosts, response.data]);
+				setText('');
+			}).catch(error => console.log(error));
 	}
 
 	const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
