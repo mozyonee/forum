@@ -34,9 +34,16 @@ export default function Account() {
 	}, [selected]);
 
 	const follow = () => {
+		if(!user) return;
+
 		api.patch(`/users/follow`, { follower: user, followed: account })
-			.then(response => setUser(response.data))
-			.catch(error => console.log(error));
+			.then(response => {
+				setUser(response.data);
+				setFollowers((prevFollowers) => {
+					if (prevFollowers.includes(user._id)) return prevFollowers.filter(follower => follower !== user._id);
+					else return [...prevFollowers, user._id];
+				});
+			}).catch(error => console.log(error));
 	}
 
 	return <>
