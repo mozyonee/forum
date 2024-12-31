@@ -3,7 +3,7 @@
 import api from "@/helpers/api";
 import { useUser } from "@/helpers/authentication/context";
 import { usePathname, useRouter } from 'next/navigation'
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { Post } from '@/types/interfaces';
 import { format } from 'date-fns';
 import { CommentIcon, LikeIcon, RepostIcon, ShareIcon, DeleteIcon } from "../../public/icons";
@@ -65,9 +65,9 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 	const [outerHover, hoverOuter] = useState(false);
 
 	const blockLink = () => {
-		if (!innerHover) router.push(`/post/${post._id}`);
+		router.push(`/post/${post._id}`);
 	};
-	
+
 	return (
 		<div className='border border-foreground p-3 cursor-pointer' onClick={blockLink} onMouseEnter={() => hoverOuter(true)} onMouseLeave={() => hoverOuter(false)}>
 			<div className="flex gap-3 justify-between">
@@ -77,7 +77,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 				</div>
 				
 				{ user && user._id === post.author?._id &&
-					<button onClick={remove} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+					<button onClick={(event) => { event.stopPropagation(); remove(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
 						<DeleteIcon classNames="fill-foreground" />
 					</button>
 				}
@@ -86,25 +86,25 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 			<p className={`${(outerHover && !innerHover) && 'opacity-50'} text-base my-2`} style={{ transition: 'opacity 0.25s ease-in-out' }} >{post.text}</p>
 
 			{user && (
-					<div className="flex gap-3 justify-between">
-						<div className="flex gap-3">
-							<button className="flex items-center gap-1" onClick={like} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<LikeIcon classNames={`${post.likes?.includes(user._id) ? 'fill-like' : 'fill-foreground'}`} />
-								<span>{post.likes?.length}</span>
-							</button>
-							<button className="flex items-center gap-1" onClick={repost} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<RepostIcon classNames={`${post.reposts?.includes(user._id) ? 'fill-repost' : 'fill-foreground'}`} />
-								<span>{post.reposts?.length}</span>
-							</button>
-							<button className="flex items-center gap-1" onClick={() => router.push(`/post/${post._id}`)} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-								<CommentIcon classNames="fill-foreground" />
-								<span>{post.repliesCount}</span>
-							</button>
-						</div>
-						<button className="flex items-center gap-1"	onClick={share} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-							<ShareIcon classNames="fill-foreground" />
+				<div className="flex gap-3 justify-between">
+					<div className="flex gap-3">
+						<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); like(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+							<LikeIcon classNames={`${post.likes?.includes(user._id) ? 'fill-like' : 'fill-foreground'}`} />
+							<span>{post.likes?.length}</span>
+						</button>
+						<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); repost(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+							<RepostIcon classNames={`${post.reposts?.includes(user._id) ? 'fill-repost' : 'fill-foreground'}`} />
+							<span>{post.reposts?.length}</span>
+						</button>
+						<button className="flex items-center gap-1" onClick={() => router.push(`/post/${post._id}`)} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+							<CommentIcon classNames="fill-foreground" />
+							<span>{post.repliesCount}</span>
 						</button>
 					</div>
+					<button className="flex items-center gap-1"	onClick={(event) => { event.stopPropagation(); share(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+						<ShareIcon classNames="fill-foreground" />
+					</button>
+				</div>
 			)}
 		</div>
 	);
