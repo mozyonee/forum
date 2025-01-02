@@ -89,6 +89,14 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 
 			<p className={`${(outerHover && !innerHover) && 'opacity-50'} text-base my-2`} style={{ transition: 'opacity 0.25s ease-in-out' }} >{post.text}</p>
 
+			{post.attachments?.length > 0 && (
+				<div className="grid grid-cols-2 gap-2 my-3">
+					{post.attachments.map((image, key) => (
+						<img key={key} src={image} alt={`Attachment ${key + 1}`} className="w-full h-auto border border-foreground rounded" />
+					))}
+				</div>
+			)}
+
 			<div className="flex gap-3 justify-between">
 				<div className="flex gap-3">
 					<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); like(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>

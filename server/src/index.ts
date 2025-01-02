@@ -7,18 +7,15 @@ import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './router';
+import path from 'path';
 
 const app = express();
-
-app.use(cors({
-	origin: process.env.CLIENT_URL,
-	credentials: true
-}));
-
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const server = http.createServer(app);
 const { SERVER_HOST, SERVER_PORT } = process.env;
@@ -30,7 +27,6 @@ mongoose.connection.once('open', () => {
 		console.log(`server listened on ${SERVER_HOST}:${SERVER_PORT}`);
 	})
 });
-
 mongoose.connection.on('error', (error: Error) => console.log(error));
 
 app.use('/v1', router());

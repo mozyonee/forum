@@ -8,6 +8,21 @@ const handleError = (res: Response, error: Error) => {
 	res.sendStatus(500);
 };
 
+export const create = async (req: Request, res: Response) => {
+	try {
+		const { author, text, attachments } = req.body;
+
+		if (!author || !(text || attachments.length)) return res.sendStatus(400);
+
+		const created = await createPost(req.body);
+		const result = await getPostByID(created._id.toString());
+
+		res.status(201).json(result);
+	} catch (error) {
+		handleError(res, error);
+	}
+};
+
 export const getPosts = async (req: Request, res: Response) => {
 	try {
 		const parent = req.query.parent;
@@ -48,20 +63,6 @@ export const searchPosts = async (req: Request, res: Response) => {
 		const posts = await postModel.find({ text: { $regex: query, $options: 'i' }, }).populate('author');
 
 		res.status(200).json(posts).end();
-	} catch (error) {
-		handleError(res, error);
-	}
-};
-
-export const create = async (req: Request, res: Response) => {
-	try {
-		const { text } = req.body;
-		if (!text) return res.sendStatus(400);
-
-		const createdPost = await createPost(req.body);
-		const result = await getPostByID(createdPost._id.toString());
-
-		res.status(200).json(result);
 	} catch (error) {
 		handleError(res, error);
 	}

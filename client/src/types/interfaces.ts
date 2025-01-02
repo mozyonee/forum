@@ -11,6 +11,7 @@ interface Post {
 	date: Date;
 	author: User;
 	text: string;
+	attachments: string[];
 	likes: string[];
 	reposts: string[];
 	repliesCount: number;

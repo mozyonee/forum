@@ -17,7 +17,7 @@ export const getUsers = () => userModel.find();
 export const getUserByID = (id: string) => userModel.findById(id);
 export const getUserByEmail = (email: string) => userModel.findOne({ email });
 export const getUserByUsername = (username: string) => userModel.findOne({ username });
-export const getFollowersByUserID = (id: string) => userModel.find({ following: new mongoose.Types.ObjectId(id) }).select('_id');
+export const getFollowersByUserID = (id: string) => userModel.find({ following: new mongoose.Types.ObjectId(id) });
 
 export const createUser = (values: Record<string, any>) => userModel.create(values);
 export const deleteUserById = (id: string) => userModel.findOneAndDelete({_id: id});

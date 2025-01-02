@@ -7,9 +7,7 @@ import Link from "next/link";
 const Header = () => {
 
 	const { user } = useUser();
-	
 	const path = usePathname().split('/');
-	console.log(path);
 
 	return (
 		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>

@@ -22,6 +22,14 @@ export function DeleteIcon({ classNames }: IconProps) {
 	return <svg className={`${classNames}`} fill="#ffffff" width="1.25em" height="1.25em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z"/><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"/></svg>
 }
 
+export function ImageIcon({ classNames }: IconProps) {
+	return <svg className={`${classNames}`} fill="#ffffff" width="1.25em" height="1.25em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"/><path d="m10 14-1-1-3 4h12l-5-7z"/></svg>
+}
+
+export function SendIcon({ classNames }: IconProps) {
+	return <svg className={`${classNames}`} fill="#ffffff" width="1.25em" height="1.25em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="m16.589 9-1.586-1.586-9.097 9.097-.529 2.114 2.114-.528zm2.999-3-1.586 1.586L16.416 6l1.586-1.586z"/><path d="M4.003 21c.081 0 .162-.01.242-.03l4-1c.176-.044.337-.135.465-.263L21.003 7.414c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414L19.417 3c-.756-.756-2.072-.756-2.828 0L4.296 15.293a1.003 1.003 0 0 0-.263.464l-1 4A1 1 0 0 0 4.003 21zm14-16.586L19.589 6l-1.586 1.586L16.417 6l1.586-1.586zM5.906 16.511l9.097-9.097L16.589 9l-9.098 9.097-2.114.528.529-2.114z"/></svg>
+}
+
 // export function Icon({ classNames }: IconProps) {
 // 	return
 // }

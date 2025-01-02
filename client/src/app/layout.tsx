@@ -1,7 +1,7 @@
 import UserProvider from '@/helpers/authentication/context';
 import Header from '@/components/Header';
 import '@/styles/globals.css';
-
+import { EdgeStoreProvider } from '../lib/edgestore';
 const defaultUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
 export const metadata = {
@@ -24,10 +24,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en">
 			<body className="antialiased">
-				<UserProvider>
-					<Header />
-					<main>{children}</main>
-				</UserProvider>
+				<EdgeStoreProvider>
+					<UserProvider>
+						<Header />
+						<main>{children}</main>
+					</UserProvider>
+				</EdgeStoreProvider>
 			</body>
 		</html>
 	);
