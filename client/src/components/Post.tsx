@@ -92,7 +92,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 			{post.attachments?.length > 0 && (
 				<div className="grid grid-cols-2 gap-2 my-3">
 					{post.attachments.map((image, key) => (
-						<img key={key} src={image} alt={`Attachment ${key + 1}`} className="w-full h-auto border border-foreground rounded" onClick={(event) => { event.stopPropagation(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}/>
+						<img key={key} src={image} alt={`Attachment ${key + 1}`} className="w-full h-auto border border-foreground rounded" onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}/>
 					))}
 				</div>
 			)}
