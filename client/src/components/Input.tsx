@@ -150,7 +150,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 						<div className="flex gap-3">
 							{fileStates?.map(({ file, progress }, index) => (
 								<div key={index} className={'p-0 h-16 w-16 relative shadow-md rounded-md aspect-square'}>
-									<img className="h-full w-full rounded-md object-cover" src={imageUrls[index]} alt={typeof file === 'string' ? file : file.name} onClick={(event) => { event.stopPropagation() }} />
+									<img className="h-full w-full rounded-md object-cover" src={imageUrls[index]} alt={typeof file === 'string' ? file : file.name} />
 									{/* Progress Bar */}
 									{typeof progress === 'number' && (
 										<div className="absolute top-0 left-0 flex h-full w-full items-center justify-center rounded-md bg-black bg-opacity-70">
