@@ -19,6 +19,8 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 	const path = usePathname().split('/');
 
 	const like = () => {
+		if(!user) return;
+
 		api.patch('/posts/like', { user, post })
 			.then(response => {
 				setParents((prevPosts: Post[]) => {
@@ -31,6 +33,8 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 			.catch(error => console.log(error));
 	}
 	const repost = () => {
+		if(!user) return;
+		
 		api.patch('/posts/repost', { user, post })
 			.then(response => {
 				setParents((prevPosts: Post[]) => {
