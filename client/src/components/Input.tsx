@@ -45,6 +45,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 	
 	const imageUrls = React.useMemo(() => {
 		if (fileStates) {
+			console.log(fileStates.length);
 			return fileStates.map((fileState) => {
 				if (typeof fileState.file === 'string') return fileState.file;
 				else return URL.createObjectURL(fileState.file);
@@ -141,13 +142,14 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 
 	return <>
 		{user &&
-			<form onSubmit={createPost} className="flex flex-col">
-				<textarea name="text" placeholder="text" value={text} onChange={handleTextChange} className="p-3 bg-transparent border-t border-x border-foreground resize-none overflow-hidden" />
+			<form onSubmit={createPost} className="flex flex-col border border-foreground p-3">
+				<textarea name="text" placeholder="text" value={text} onChange={handleTextChange} className="bg-transparent resize-none overflow-hidden" />
 
-					<div className={`flex justify-${fileStates.length ? 'between' : 'end'} gap-3 items-end border-white border-b border-x px-3 pb-3`}>
+				<div className={`flex ${fileStates.length > 1 ? 'justify-between' : 'justify-end'} gap-3 items-end`}>
+					{fileStates.length > 1 &&
 						<div className="flex gap-3">
 							{fileStates?.map(({ file, progress }, index) => (
-								<div key={index} className={'border p-0 h-16 w-16 relative shadow-md rounded-md aspect-square'}>
+								<div key={index} className={'p-0 h-16 w-16 relative shadow-md rounded-md aspect-square'}>
 									<img className="h-full w-full rounded-md object-cover" src={imageUrls[index]} alt={typeof file === 'string' ? file : file.name} />
 									{/* Progress Bar */}
 									{typeof progress === 'number' && (
@@ -171,17 +173,17 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 								</div>
 							))}
 						</div>
-						<div className="flex gap-3">
-							{(!fileStates || fileStates.length < 6) && (
-								<div {...getRootProps({ className: `relative cursor-pointer` })}>
-									<input {...getInputProps()} />
-									<ImageIcon classNames="hover:opacity-50 transition-all duration-250" />
-								</div>
-							)}
-							<button type="submit"><SendIcon /></button>
-						</div>
+					}
+					<div className="flex gap-3">
+						{(!fileStates || fileStates.length < 6) && (
+							<div {...getRootProps({ className: `relative cursor-pointer` })}>
+								<input {...getInputProps()} />
+								<ImageIcon classNames="hover:opacity-50 transition-all duration-250" />
+							</div>
+						)}
+						<button type="submit"><SendIcon /></button>
 					</div>
-
+				</div>
 			</form>
 		}
 	</>;
