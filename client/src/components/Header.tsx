@@ -12,7 +12,7 @@ const Header = () => {
 	return (
 		 <header className={`flex p-6 ${!user && path[path.length - 1] === 'authenticate' ? 'justify-center' : 'justify-between'} items-center gap-5`}>
 			<nav className="flex gap-5">
-				{ path[1] && <Link href='/' className="border border-foreground p-2">home</Link> }
+				{ path[1] && <Link href='/' className="border border-foreground p-2">alt + f4</Link> }
 				<a href="/search" className="border border-foreground p-2">search</a>
 			</nav>
 			{ user ?
