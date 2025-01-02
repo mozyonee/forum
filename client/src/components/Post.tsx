@@ -19,7 +19,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 	const path = usePathname().split('/');
 
 	const like = () => {
-		if(!user) return;
+		if(!user) return router.push('/authenticate');
 
 		api.patch('/posts/like', { user, post })
 			.then(response => {
@@ -33,7 +33,7 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 			.catch(error => console.log(error));
 	}
 	const repost = () => {
-		if(!user) return;
+		if(!user) return router.push('/authenticate');
 		
 		api.patch('/posts/repost', { user, post })
 			.then(response => {
@@ -89,27 +89,25 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 
 			<p className={`${(outerHover && !innerHover) && 'opacity-50'} text-base my-2`} style={{ transition: 'opacity 0.25s ease-in-out' }} >{post.text}</p>
 
-			{user && (
-				<div className="flex gap-3 justify-between">
-					<div className="flex gap-3">
-						<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); like(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-							<LikeIcon classNames={`${post.likes?.includes(user._id) ? 'fill-like' : 'fill-foreground'}`} />
-							<span>{post.likes?.length}</span>
-						</button>
-						<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); repost(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-							<RepostIcon classNames={`${post.reposts?.includes(user._id) ? 'fill-repost' : 'fill-foreground'}`} />
-							<span>{post.reposts?.length}</span>
-						</button>
-						<button className="flex items-center gap-1" onClick={() => router.push(`/post/${post._id}`)} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-							<CommentIcon classNames="fill-foreground" />
-							<span>{post.repliesCount}</span>
-						</button>
-					</div>
-					<button className="flex items-center gap-1"	onClick={(event) => { event.stopPropagation(); share(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
-						<ShareIcon classNames="fill-foreground" />
+			<div className="flex gap-3 justify-between">
+				<div className="flex gap-3">
+					<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); like(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+						<LikeIcon classNames={`${user && post.likes?.includes(user._id) ? 'fill-like' : 'fill-foreground'}`} />
+						<span>{post.likes?.length}</span>
+					</button>
+					<button className="flex items-center gap-1" onClick={(event) => { event.stopPropagation(); repost(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+						<RepostIcon classNames={`${user && post.reposts?.includes(user._id) ? 'fill-repost' : 'fill-foreground'}`} />
+						<span>{post.reposts?.length}</span>
+					</button>
+					<button className="flex items-center gap-1" onClick={() => router.push(`/post/${post._id}`)} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+						<CommentIcon classNames="fill-foreground" />
+						<span>{post.repliesCount}</span>
 					</button>
 				</div>
-			)}
+				<button className="flex items-center gap-1"	onClick={(event) => { event.stopPropagation(); share(); }} onMouseEnter={() => hoverInner(true)} onMouseLeave={() => hoverInner(false)}>
+					<ShareIcon classNames="fill-foreground" />
+				</button>
+			</div>
 		</div>
 	);
 };

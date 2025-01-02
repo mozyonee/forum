@@ -45,11 +45,13 @@ a, button, input[type="submit"] {
 	transition: opacity 0.25s ease-in-out;
 }
 
-a:hover, button:hover, input[type="submit"]:hover {
-	opacity: 0.5;
-	cursor: pointer;
-}
-
 textarea:focus, input:focus {
 	outline: none;
+}
+
+@media (hover: hover) {
+	a:hover, button:hover, input[type="submit"]:hover {
+		opacity: 0.5;
+		cursor: pointer;
+	}
 }
