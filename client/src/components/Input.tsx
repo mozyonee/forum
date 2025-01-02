@@ -178,10 +178,10 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 						{(!fileStates || fileStates.length < 6) && (
 							<div {...getRootProps({ className: `relative cursor-pointer` })}>
 								<input {...getInputProps()} />
-								<ImageIcon classNames="hover:opacity-50 transition-all duration-250" />
+								<ImageIcon classNames="fill-foreground hover:opacity-50 transition-all duration-250" />
 							</div>
 						)}
-						<button type="submit"><SendIcon /></button>
+						<button type="submit"><SendIcon classNames="fill-foreground" /></button>
 					</div>
 				</div>
 			</form>
