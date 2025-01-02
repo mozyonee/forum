@@ -15,6 +15,9 @@ export default {
 				repost: "var(--repost)",
 				follow: "var(--follow)"
 			},
+			screens: {
+				'hover-hover': { 'raw': '(hover: hover)' }
+			}
 		}
 	},
 	plugins: [],

@@ -87,15 +87,17 @@ const PostComponent: React.FC<PostFunction> = ({ post, setParents }) => {
 				}
 			</div>
 
-			<p className={`${(outerHover && !innerHover) && 'opacity-50'} text-base my-2`} style={{ transition: 'opacity 0.25s ease-in-out' }} >{post.text}</p>
+			<div className={`${(outerHover && !innerHover) && 'hover-hover:opacity-50'}`} style={{ transition: 'opacity 0.25s ease-in-out' }} >
+				<p className="text-base my-2">{post.text}</p>
 
-			{post.attachments?.length > 0 && (
-				<div className="grid grid-cols-2 gap-2 my-3">
-					{post.attachments.map((image, key) => (
-						<img key={key} src={image} alt={`Attachment ${key + 1}`} className={`${(outerHover && !innerHover) && 'opacity-50'} w-full h-auto border border-foreground rounded`}/>
-					))}
-				</div>
-			)}
+				{post.attachments?.length > 0 && (
+					<div className="grid grid-cols-2 gap-2 my-3">
+						{post.attachments.map((image, key) => (
+							<img key={key} src={image} alt={`Attachment ${key + 1}`} className="w-full h-auto border border-foreground rounded" />
+						))}
+					</div>
+				)}
+			</div>
 
 			<div className="flex gap-3 justify-between">
 				<div className="flex gap-3">
