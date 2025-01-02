@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import { useUser } from '@/helpers/authentication/context';
 import { useEdgeStore } from '../lib/edgestore';
 import api from "@/helpers/api";
