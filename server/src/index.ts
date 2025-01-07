@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import router from './router';
+import routerV1 from './routerV1';
 import path from 'path';
 
 const app = express();
@@ -29,4 +29,4 @@ mongoose.connection.once('open', () => {
 });
 mongoose.connection.on('error', (error: Error) => console.log(error));
 
-app.use('/v1', router());
+app.use('/v1', routerV1());
