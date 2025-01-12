@@ -67,7 +67,7 @@ export default function Account() {
 					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'opacity-50'}`}>likes</a> }
 				</div>
 
-				{ selected === 'posts' && <Input parent={null} setParent={setPosts} /> }
+				{ (user && user._id === account._id && selected === 'posts') && <Input parent={null} setParent={setPosts} /> }
 				
 				<div>
 					{ posts.length ? 
