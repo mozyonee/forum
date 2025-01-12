@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation';
 import { useUser } from '@/helpers/authentication/context';
-import api from '@/helpers/api';
-import PostComponent from '@/components/Post';
 import { User, Post } from '@/types/interfaces';
+import api from '@/helpers/api';
+import Input from '@/components/Input';
+import PostComponent from '@/components/Post';
 
 export default function Account() {
 	const params = useParams();
@@ -65,6 +66,9 @@ export default function Account() {
 					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'opacity-50'}`}>reposts</a>
 					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'opacity-50'}`}>likes</a> }
 				</div>
+
+				{ selected === 'posts' && <Input parent={null} setParent={setPosts} /> }
+				
 				<div>
 					{ posts.length ? 
 						[...posts].reverse().map((post, key) => <PostComponent post={post} setParents={setPosts} key={key} />)
