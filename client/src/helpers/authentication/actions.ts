@@ -2,8 +2,11 @@ import api from "../api";
 import { createSession, verifySession, deleteSession } from "./session";
 import { useUser } from "./context";
 
+import { useRouter } from 'next/navigation'
+
 export function useAuthHelpers() {
 	const { setUser } = useUser();
+	const router = useRouter();
 
 	const register = async (formData: FormData) => {
 		const data = {
@@ -11,13 +14,15 @@ export function useAuthHelpers() {
 			email: formData.get('email'),
 			password: formData.get('password')
 		}
-		
 
 		await api.post("/auth/register", data)
-		.then(async (response) => {
-			await createSession(response.data);
-		})
-		.catch((error) => console.log(error));
+			.then(async (response) => {
+				await createSession(response.data);
+				const userData = await verifySession();
+				await setUser(userData);
+				router.push('/');
+			})
+			.catch((error) => console.log(error));
 	};
 
 	const verify = async () => {

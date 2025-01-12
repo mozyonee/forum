@@ -28,7 +28,7 @@ export const register = async (req: Request, res: Response) => {
 				password: authentication(salt, password)
 			}
 		});
-		res.status(200).json(user).end();
+		res.status(200).json(user);
 	} catch(error) {
 		handleError(res, error);
 	}
@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
 		
 		if(user.authentication.password !== authentication(user.authentication.salt, password)) return res.sendStatus(403);
 
-		res.status(200).json(user).end();
+		res.status(200).json(user);
 	} catch(error) {
 		handleError(res, error);
 	}
@@ -64,7 +64,7 @@ export const status = async (req: Request, res: Response) => {
 	try {
 		const user = get(req, 'identity') as string;
 
-		res.status(200).json(user).end();
+		res.status(200).json(user);
 	} catch(error) {
 		handleError(res, error);
 	}

@@ -15,7 +15,7 @@ export const getUser = async (req: Request, res: Response) => {
 		const result = user ? await getUserByID(user.toString()) : await getUsers();
 		
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -26,7 +26,7 @@ export const searchUsers = async (req: Request, res: Response) => {
 		const query = req.query.query;
 		const accounts = await userModel.find({ username: { $regex: query, $options: 'i' }, });
 
-		res.status(200).json(accounts).end();
+		res.status(200).json(accounts);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -38,7 +38,7 @@ export const getUsersPosts = async (req: Request, res: Response) => {
 		const result = await getPostsByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error)
 	}
@@ -50,7 +50,7 @@ export const getUsersReplies = async (req: Request, res: Response) => {
 		const result = await getRepliesByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error)
 	}
@@ -62,7 +62,7 @@ export const getUsersReposts = async (req: Request, res: Response) => {
 		const result = await getRepostsByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error)
 	}
@@ -74,7 +74,7 @@ export const getUsersLikes = async (req: Request, res: Response) => {
 		const result = await getLikesByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error)
 	}
@@ -86,7 +86,7 @@ export const getUsersFollowers = async (req: Request, res: Response) => {
 		const result = await getFollowersByUserID(user.toString());
 
 		if (!result) return res.sendStatus(404);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error)
 	}
@@ -108,7 +108,7 @@ export const follow = async (req: Request, res: Response) => {
 		follower.following = updatedFollowing;
 		await updateUserById(follower._id, { following: updatedFollowing });
 
-		res.status(200).json(follower).end();
+		res.status(200).json(follower);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -124,7 +124,7 @@ export const changeUsername = async (req: Request, res: Response) => {
 		await updateUserById(user, { username });
 
 		const result = await getUserByID(user);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error);
 	}
@@ -140,7 +140,7 @@ export const changeEmail = async (req: Request, res: Response) => {
 		await updateUserById(user, { email });
 
 		const result = await getUserByID(user);
-		res.status(200).json(result).end();
+		res.status(200).json(result);
 	} catch(error) {
 		handleError(res, error);
 	}
@@ -153,7 +153,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 		const user = await getUserByID(id);
 		if(!user) return res.sendStatus(404);
 		await deleteUserById(id);
-		res.status(200).json(user).end();
+		res.status(200).json(user);
 	} catch(error) {
 		handleError(res, error);
 	}

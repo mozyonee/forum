@@ -62,7 +62,7 @@ export const searchPosts = async (req: Request, res: Response) => {
 		const query = req.query.query;
 		const posts = await postModel.find({ text: { $regex: query, $options: 'i' }, }).populate('author');
 
-		res.status(200).json(posts).end();
+		res.status(200).json(posts);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -86,7 +86,7 @@ export const remove = async (req: Request, res: Response) => {
 
 		await deletePostRecursively(post);
 
-		res.status(200).json(post).end();
+		res.status(200).json(post);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -108,7 +108,7 @@ export const like = async (req: Request, res: Response) => {
 		post.likes = updatedLikes;
 		await updatePostById(post._id, { likes: updatedLikes });
 
-		res.status(200).json(post).end();
+		res.status(200).json(post);
 	} catch (error) {
 		handleError(res, error);
 	}
@@ -130,7 +130,7 @@ export const repost = async (req: Request, res: Response) => {
 		post.reposts = updatedReposts;
 		await updatePostById(post._id, { reposts: updatedReposts });
 
-		res.status(200).json(post).end();
+		res.status(200).json(post);
 	} catch (error) {
 		handleError(res, error)
 	}
