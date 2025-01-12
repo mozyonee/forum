@@ -55,7 +55,7 @@ const Search = () => {
 				))
 			}
 
-			{(text && ((selected === 'accounts' && !accounts.length) || (selected === 'posts' && !posts.length))) && <p className='text-center'>No results found</p>}
+			{(text && ((selected === 'accounts' && !accounts.length) || (selected === 'posts' && !posts.length))) && <p className='text-center'>no results found</p>}
 		</>
 	);
 }

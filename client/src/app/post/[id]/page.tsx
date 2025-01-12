@@ -46,7 +46,7 @@ export default function PostPage() {
 					</div>
 				</>
 			) : (
-				<h1>post not found</h1>
+				<p className="text-center">post not found</p>
 			)}
 		</>
 	);

@@ -78,7 +78,7 @@ export default function Account() {
 				</div>
 			</div>
 		</>) : (
-			<h1>no account fount</h1>
+			<p className='text-center'>no account fount</p>
 		)}
 
 	</>;
