@@ -27,6 +27,12 @@ export default function PostPage() {
 		fetchPost();
 	}, [id]);
 
+	useEffect(()=>{
+		api.get(`/posts/parents?parent=${id}`)
+			.then(response => setPosts(response.data))
+			.catch(error => console.log(error));
+	}, [replies])
+
 	return (
 		<>
 			{posts ? (
