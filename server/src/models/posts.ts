@@ -43,10 +43,12 @@ export const getPostsByUserID = async (id: string) => {
 	]);
 };
 
+
+
 export const getPostTreeByID = async (id: string) => {
 	const [result] = await postModel.aggregate([
 
-		{ $match: { _id: new mongoose.Types.ObjectId(id) } },
+		{ $match: { _id: new mongoose.Types.ObjectId(id) } }, // get base
 		{ $limit: 1 },
 		{ $project: { _id: 1 } },
 
@@ -54,13 +56,13 @@ export const getPostTreeByID = async (id: string) => {
 		{ $unwind: "$post" },
 		{ $sort: { "post.level": -1 } },
 
-		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
-		{ $project: { 'author.authentication': 0 } }, // .populate('author');
+		{ $lookup: { from: "users", localField: "post.author", foreignField: "_id", as: "post.author" } },
+		{ $unwind: { path: "$post.author", preserveNullAndEmptyArrays: true } },
+		{ $project: { 'post.author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$post._id' }, pipeline: [ { $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' } ], as: 'repliesCountData' } },
 		{ $addFields: { 'post.repliesCount': { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0 ] } } },
-		{ $project: { repliesCountData: 0 } },
+		{ $project: { repliesCountData: 0 } }, // count replies
 
 		{ $group: { _id: "$_id", posts: { $push: "$post" } } },
 		{ $project: { _id: 0, posts: { $reverseArray: "$posts" } } },
