@@ -17,7 +17,8 @@ export const getPostByID = async (id: string) => {
 		{ $match: { _id: new mongoose.Types.ObjectId(id) } }, // get post
 
 		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData', }, },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },
@@ -33,7 +34,8 @@ export const getPostsByUserID = async (id: string) => {
 		{ $match: { parent: null, author: new mongoose.Types.ObjectId(id) } }, // get post by author
 
 		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData' } },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },
@@ -52,8 +54,9 @@ export const getPostTreeByID = async (id: string) => {
 		{ $unwind: "$post" },
 		{ $sort: { "post.level": -1 } },
 
-		{ $lookup: { from: "users", localField: "post.author", foreignField: "_id", as: "post.author" } },
-		{ $unwind: { path: "$post.author", preserveNullAndEmptyArrays: true } },
+		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$post._id' }, pipeline: [ { $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' } ], as: 'repliesCountData' } },
 		{ $addFields: { 'post.repliesCount': { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0 ] } } },
@@ -71,7 +74,8 @@ export const getPostsByParentId = async (id: string | null) => {
 		{ $match: { parent: id ? new mongoose.Types.ObjectId(id) : null } }, // get replies to post
 
 		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData' } },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },
@@ -84,7 +88,8 @@ export const getLikesByUserID = async (id: string) => {
 		{ $match: { likes: { $in: [new mongoose.Types.ObjectId(id)] } } }, // get posts liked by user
 
 		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData' } },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },
@@ -97,7 +102,8 @@ export const getRepostsByUserID = async (id: string) => {
 		{ $match: { reposts: { $in: [new mongoose.Types.ObjectId(id)] } } }, // get posts reposted by user
 
 		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData' } },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },
@@ -109,8 +115,9 @@ export const getRepliesByUserID = async (id: string) => {
 	return await postModel.aggregate([
 		{ $match: { parent: { $ne: null }, author: new mongoose.Types.ObjectId(id) } }, // get replies by author
 
-		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author' } },
-		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } }, // .populate('author');
+		{ $lookup: { from: 'users', localField: 'author', foreignField: '_id', as: 'author', }, },
+		{ $unwind: { path: '$author', preserveNullAndEmptyArrays: true } },
+		{ $project: { 'author.authentication': 0 } }, // .populate('author');
 
 		{ $lookup: { from: 'posts', let: { postId: '$_id' }, pipeline: [{ $match: { $expr: { $eq: ['$parent', '$$postId'] } } }, { $count: 'count' }], as: 'repliesCountData' } },
 		{ $addFields: { repliesCount: { $ifNull: [{ $arrayElemAt: ['$repliesCountData.count', 0] }, 0] } } },

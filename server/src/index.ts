@@ -4,13 +4,22 @@ import http from 'http';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import cors from 'cors';
 import mongoose from 'mongoose';
 import routerV1 from './routerV1';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use((req, res, next) => {
+	const origin = req.headers.origin;
+	if (origin === process.env.CLIENT_URL) {
+		res.setHeader("Access-Control-Allow-Origin", origin);
+		res.setHeader("Access-Control-Allow-Credentials", "true");
+		return next();
+	}
+	res.sendStatus(403);
+});
 app.use(express.json());
 app.use(compression());
 app.use(cookieParser());

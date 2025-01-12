@@ -45,7 +45,6 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 	
 	const imageUrls = React.useMemo(() => {
 		if (fileStates) {
-			console.log(fileStates.length);
 			return fileStates.map((fileState) => {
 				if (typeof fileState.file === 'string') return fileState.file;
 				else return URL.createObjectURL(fileState.file);

@@ -23,18 +23,6 @@ export const create = async (req: Request, res: Response) => {
 	}
 };
 
-export const getPosts = async (req: Request, res: Response) => {
-	try {
-		const parent = req.query.parent;
-		const result = parent && await getPostByID(parent.toString());
-
-		if (!result) return res.sendStatus(404);
-		res.status(200).json(result);
-	} catch (error) {
-		handleError(res, error);
-	}
-};
-
 export const getParents = async (req: Request, res: Response) => {
 	try {
 		const parent = req.query.parent.toString() || null;
