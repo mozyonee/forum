@@ -47,13 +47,9 @@ export function useAuthHelpers() {
 	};
 
 	const logout = async () => {
-		await api.post("/auth/logout")
-			.then(async () => {
-				await deleteSession();
-				const userData = await verifySession();
-				setUser(userData);
-			})
-			.catch((error) => console.log(error));
+		await deleteSession();
+		const userData = await verifySession();
+		setUser(userData);
 	};
 
 	return { register, login, logout, verify };
