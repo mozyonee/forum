@@ -32,7 +32,6 @@
 		"crypto": "^1.0.1",
 		"dotenv": "^16.4.7",
 		"mongoose": "^8.9.5",
-		"nestjs-graceful-shutdown": "^1.0.3",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.8.1"
 	},
