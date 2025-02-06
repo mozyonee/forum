@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module, OnApplicationShutdown } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -17,9 +17,12 @@ mongoose.set('debug', true);
 		ConfigModule.forRoot({ isGlobal: true }),
 		MongooseModule.forRootAsync({
 			imports: [ConfigModule],
-			useFactory: (configService: ConfigService) => ({
-				uri: configService.get<string>('MONGODB_URI')
-			}),
+			useFactory: (configService: ConfigService) => {
+				console.log(configService.get<string>('MONGODB_URI'));
+				return ({
+					uri: configService.get<string>('MONGODB_URI')
+				});
+			},
 			inject: [ConfigService]
 		}),
 		UsersModule,
@@ -34,6 +37,9 @@ mongoose.set('debug', true);
 			provide: APP_GUARD,
 			useClass: ThrottlerGuard
 		}
-	]
+	],
+	exports: []
 })
-export class AppModule { }
+
+export class AppModule {}
+	

@@ -6,7 +6,7 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"scripts": {
-		"build": "npm i && npx @nestjs/cli build",
+		"build": "npx @nestjs/cli build",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "npx @nestjs/cli start",
 		"start:dev": "npx @nestjs/cli start --watch",
@@ -20,7 +20,7 @@
 		"test:e2e": "jest --config ./test/jest-e2e.json"
 	},
 	"dependencies": {
-		"@nestjs/cli": "^10.0.0",
+		"@nestjs/cli": "^11.0.2",
 		"@nestjs/common": "^10.0.0",
 		"@nestjs/config": "^4.0.0",
 		"@nestjs/core": "^10.0.0",
@@ -32,6 +32,7 @@
 		"crypto": "^1.0.1",
 		"dotenv": "^16.4.7",
 		"mongoose": "^8.9.5",
+		"nestjs-graceful-shutdown": "^1.0.3",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.8.1"
 	},

@@ -5,7 +5,20 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
+
 	const configService = app.get(ConfigService);
+	const clientHost = configService.get<string>('CLIENT_HOST') || "http://localhost";
+	const clientPort = clientHost === "http://localhost" ? `:${configService.get<string>('CLIENT_PORT')}` : "";
+	const clientURL = clientHost + clientPort;
+
+	app.enableCors({
+		"origin": [clientURL],
+		"methods": "GET,POST,PATCH,DELETE",
+		credentials: true,
+		allowedHeaders: ['Content-Type', 'Accept'],
+		"preflightContinue": false,
+		"optionsSuccessStatus": 204
+	});
 
 	app.useLogger(new Logger());
 
@@ -15,20 +28,11 @@ async function bootstrap() {
 			forbidNonWhitelisted: true,
 			transform: true
 		})
-	)
-
-	app.enableCors({
-		"origin": [configService.get<string>('CLIENT_URL')],
-		"methods": "GET,POST,PATCH,DELETE",
-		credentials: true,
-		allowedHeaders: ['Content-Type', 'Accept'],
-		"preflightContinue": false,
-		"optionsSuccessStatus": 204
-	});
+	);
 
 	app.setGlobalPrefix('v1');
 
-	await app.listen(8080);
+	await app.listen(configService.get<number>('SERVER_PORT') || 8080, '0.0.0.0');
 }
 
 bootstrap();

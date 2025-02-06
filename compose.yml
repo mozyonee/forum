@@ -1,0 +1,29 @@
+services:
+  client:
+    restart: always
+    build: ./client
+    environment:
+      - EDGE_STORE_ACCESS_KEY=53FSG2OHuN1QpXdeIzALJQRMMNZRdPbg
+      - EDGE_STORE_SECRET_KEY=VnkDfU10MD4vuQMetFMaltBp1NxtyPPBQeeBItvtOiqGocqo
+      - SERVER_HOST=http://localhost
+      - SERVER_PORT=8080
+      - CLIENT_PORT=3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - server
+    stop_grace_period: 10s
+  
+  server:
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: always
+    build: ./server
+    environment:
+      - MONGODB_URI=mongodb+srv://vadymabakumov:mjvhOfbpBDSaTBk4@f4cluster.i7oqv.mongodb.net/test?retryWrites=true&w=majority
+      - CLIENT_HOST=http://localhost
+      - CLIENT_PORT=3001
+      - SERVER_PORT=8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    stop_grace_period: 10s
