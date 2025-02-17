@@ -1,15 +1,13 @@
-FROM node:23.7
+FROM node:23.7-alpine
 WORKDIR /src
 COPY package*.json ./
 COPY tsconfig*.json ./ 
+
 RUN npm install
 
 COPY . .
 
-ENV MONGODB_URI="mongodb+srv://vadymabakumov:mjvhOfbpBDSaTBk4@f4cluster.i7oqv.mongodb.net/test?retryWrites=true&w=majority"
-ENV CLIENT_HOST="http://localhost"
-ENV CLIENT_PORT=3000
-ENV SERVER_PORT=8080
+ENV MONGODB_URI="mongodb://f4_user:f4_password@database-service:27017/f4_db"
 
 EXPOSE 8080
 

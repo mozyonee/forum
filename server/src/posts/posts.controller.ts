@@ -23,23 +23,23 @@ export class PostsController {
 	}
 
 	@Post() // POST /posts
-	createPost(@Body() body: { author: string, text: string, attachments: string[] }) {
+	createPost(@Body() body: { author: string, text: string, attachments: string[]; }) {
 		return this.postsService.createPost(body);
 	}
 
 	@Patch('like') // PATCH /posts/like
-	likePost(@Body() body: { user: UserDto, post: PostDto }) {
+	likePost(@Body() body: { user: UserDto, post: PostDto; }) {
 		return this.postsService.likePost(body);
 	}
 
 	@Patch('repost') // PATCH /posts/repost
-	repostPost(@Body() body: { user: UserDto, post: PostDto }) {
+	repostPost(@Body() body: { user: UserDto, post: PostDto; }) {
 		return this.postsService.repostPost(body);
 	}
 
 	@Delete() // DELETE /posts
-	deletePost(@Body() body: { post: string }) {
+	deletePost(@Body() body: { post: string; }) {
 		return this.postsService.deletePost(body);
 	}
-	
+
 }

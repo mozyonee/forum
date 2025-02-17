@@ -10,7 +10,7 @@ const Home = () => {
 	const [posts, setPosts] = useState<Post[]>([]);
 
 	useEffect(() => {
-		api.get(`/posts/replies?parent`)
+		api.get(`/posts/replies`)
 			.then(response => setPosts(response.data))
 			.catch(error => console.error(error));
 	}, []);
