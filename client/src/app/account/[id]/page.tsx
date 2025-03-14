@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useUser } from '@/helpers/authentication/context';
 import { User, Post } from '@/types/interfaces';
@@ -25,17 +25,17 @@ export default function Account() {
 		api.get(`/users/followers?user=${id}`)
 			.then(response => setFollowers(response.data))
 			.catch(error => console.log(error));
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		api.get(`/users/${selected}?user=${id}`)
 			.then(response => setPosts(response.data))
 			.catch(error => console.log(error));
-		
-	}, [selected]);
+
+	}, [selected, id]);
 
 	const follow = () => {
-		if(!user) return;
+		if (!user) return;
 
 		api.patch(`/users/follow`, { follower: user, followed: account })
 			.then(response => {
@@ -45,7 +45,7 @@ export default function Account() {
 					else return [...prevFollowers, user._id];
 				});
 			}).catch(error => console.log(error));
-	}
+	};
 
 	return <>
 		{account ? (<>
@@ -54,8 +54,8 @@ export default function Account() {
 
 				<p className='my-2'>{account.following.length} following, {followers.length} followers</p>
 
-				{ (user && user._id !== account._id) &&
-					<button onClick={follow} className={`${user.following?.includes(account._id) && 'text-follow'}`}>follow{user.following?.includes(account._id) &&  'ing'}</button>
+				{(user && user._id !== account._id) &&
+					<button onClick={follow} className={`${user.following?.includes(account._id) && 'text-follow'}`}>follow{user.following?.includes(account._id) && 'ing'}</button>
 				}
 			</div>
 
@@ -64,13 +64,13 @@ export default function Account() {
 					<a onClick={() => setSelected('posts')} className={`${selected === 'posts' && 'opacity-50'}`}>posts</a>
 					<a onClick={() => setSelected('replies')} className={`${selected === 'replies' && 'opacity-50'}`}>replies</a>
 					<a onClick={() => setSelected('reposts')} className={`${selected === 'reposts' && 'opacity-50'}`}>reposts</a>
-					{ (user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'opacity-50'}`}>likes</a> }
+					{(user && user._id === account._id) && <a onClick={() => setSelected('likes')} className={`${selected === 'likes' && 'opacity-50'}`}>likes</a>}
 				</div>
 
-				{ (user && user._id === account._id && selected === 'posts') && <Input parent={null} setParent={setPosts} /> }
-				
+				{(user && user._id === account._id && selected === 'posts') && <Input parent={null} setParent={setPosts} />}
+
 				<div>
-					{ posts.length ? 
+					{posts.length ?
 						[...posts].reverse().map((post, key) => <PostComponent post={post} setParents={setPosts} key={key} />)
 						:
 						<p className='text-center'>no posts found</p>

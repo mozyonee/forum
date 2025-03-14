@@ -31,7 +31,7 @@ export default function PostPage() {
 		api.get(`/posts/parents?parent=${id}`)
 			.then(response => setPosts(response.data))
 			.catch(error => console.log(error));
-	}, [replies])
+	}, [replies, id])
 
 	return (
 		<>
