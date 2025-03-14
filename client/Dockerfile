@@ -7,10 +7,6 @@ RUN npm install
 
 COPY . .
 
-ENV EDGE_STORE_ACCESS_KEY="53FSG2OHuN1QpXdeIzALJQRMMNZRdPbg"
-ENV EDGE_STORE_SECRET_KEY="VnkDfU10MD4vuQMetFMaltBp1NxtyPPBQeeBItvtOiqGocqo"
-ENV SERVER_URL="http://localhost:8080"
-
 EXPOSE 3000
 
 RUN npm run build
