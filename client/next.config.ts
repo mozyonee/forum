@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
 	env: {
 		EDGE_STORE_ACCESS_KEY: process.env.EDGE_STORE_ACCESS_KEY,
 		EDGE_STORE_SECRET_KEY: process.env.EDGE_STORE_SECRET_KEY,
-		SERVER_URL: process.env.SERVER_URL
+		NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL
 	}
 };
 
