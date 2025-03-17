@@ -4,14 +4,16 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule, { bodyParser: true });
 	const configService = app.get(ConfigService);
 
 	app.enableCors({
 		origin: configService.get<string>('CLIENT_URL'),
-		methods: "GET,POST,PATCH,DELETE,OPTIONS",
+		methods: "GET,HEAD,PUT,POST,PATCH,DELETE,OPTIONS",
 		allowedHeaders: ["Content-Type", "Accept", 'Authorization'],
-		credentials: true
+		credentials: true,
+		preflightContinue: false,
+		optionsSuccessStatus: 204
 	});
 
 	app.useLogger(new Logger());
