@@ -7,7 +7,11 @@ RUN npm install
 
 COPY . .
 
-ENV MONGODB_URI="mongodb://f4_user:f4_password@database-service:27017/f4_db"
+ARG MONGODB_URI
+ARG CLIENT_URL
+
+ENV MONGODB_URI=$MONGODB_URI \
+	CLIENT_URL=$CLIENT_URL
 
 EXPOSE 8080
 
