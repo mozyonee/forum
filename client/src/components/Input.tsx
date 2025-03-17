@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import { useUser } from '@/helpers/authentication/context';
 import { useEdgeStore } from '../lib/edgestore';
 import api from "@/helpers/api";
-import { Post } from '@/types/interfaces'
+import { Post } from '@/types/interfaces';
 import { useDropzone } from 'react-dropzone';
 import { DeleteIcon, ImageIcon, SendIcon } from '../../public/icons';
 import React from "react";
@@ -18,7 +18,7 @@ interface InputProps {
 	setParent: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 
-function CircleProgress({ progress }: { progress: number }) {
+function CircleProgress({ progress }: { progress: number; }) {
 	const strokeWidth = 10;
 	const radius = 50;
 	const circumference = 2 * Math.PI * radius;
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 	const { user } = useUser();
 	const [fileStates, setFileStates] = useState<FileState[]>([]);
 	const [urls, setUrls] = useState<string[]>([]);
-	
+
 	const imageUrls = React.useMemo(() => {
 		if (fileStates) {
 			return fileStates.map((fileState) => {
@@ -108,7 +108,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 				}
 			})
 		);
-	}
+	};
 
 	const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const textarea = event.target;
@@ -128,15 +128,16 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 			author: user._id,
 			text,
 			attachments: urls
-		}
+		};
 
 		api.post('/posts', data)
 			.then(response => {
 				setText('');
 				setFileStates([]);
+				setUrls([]);
 				setParent((prevPosts) => [...prevPosts, response.data]);
 			}).catch(error => console.log(error));
-	}
+	};
 
 
 	return <>
@@ -144,8 +145,8 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 			<form onSubmit={createPost} className="flex flex-col border border-foreground p-3">
 				<textarea name="text" placeholder="text" value={text} onChange={handleTextChange} className="bg-transparent resize-none overflow-hidden" />
 
-				<div className={`flex ${fileStates.length > 1 ? 'justify-between' : 'justify-end'} gap-3 items-end`}>
-					{fileStates.length > 1 &&
+				<div className={`flex ${fileStates.length > 0 ? 'justify-between' : 'justify-end'} gap-3 items-end`}>
+					{fileStates.length > 0 &&
 						<div className="flex gap-3">
 							{fileStates?.map(({ file, progress }, index) => (
 								<div key={index} className={'p-0 h-16 w-16 relative shadow-md rounded-md aspect-square'}>
@@ -163,6 +164,7 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 											onClick={(event) => {
 												event.stopPropagation();
 												setFileStates((prevFileStates) => prevFileStates.filter((_, i) => i !== index));
+												setUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
 											}} >
 											<DeleteIcon
 												classNames="opacity-0 group-hover:opacity-100 transition-all duration-250 rounded-md"
@@ -186,6 +188,6 @@ const Input: React.FC<InputProps> = ({ parent, setParent }) => {
 			</form>
 		}
 	</>;
-}
+};
 
-export default Input
+export default Input;
