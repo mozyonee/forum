@@ -43,7 +43,7 @@ mongoose.set('debug', true);
 
 export class AppModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {
-		consumer.apply(CorsMiddleware).forRoutes('*'); // Apply to all routes
+		// consumer.apply(CorsMiddleware).forRoutes('*'); // Apply to all routes
 	}
 
 }
