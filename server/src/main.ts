@@ -8,7 +8,7 @@ async function bootstrap() {
 	const configService = app.get(ConfigService);
 
 	app.use((req, res, next) => {
-		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Origin', configService.get<string>('CLIENT_URL'));
 		res.header('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE');
 		res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
 		next();
@@ -16,7 +16,8 @@ async function bootstrap() {
 
 	app.enableCors({
 		allowedHeaders: "*",
-		origin: "*"
+		origin: configService.get<string>('CLIENT_URL'),
+		credentials: true
 	});
 
 	// app.enableCors({
