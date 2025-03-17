@@ -7,12 +7,24 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 	const configService = app.get(ConfigService);
 
-	app.enableCors({
-		origin: true,
-		credentials: true,
-		methods: "GET,POST,PATCH,DELETE",
-		allowedHeaders: ["Content-Type", "Accept", 'Authorization']
+	app.use((req, res, next) => {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
+		next();
 	});
+
+	app.enableCors({
+		allowedHeaders: "*",
+		origin: "*"
+	});
+
+	// app.enableCors({
+	// 	origin: true,
+	// 	credentials: true,
+	// 	methods: "GET,POST,PATCH,DELETE",
+	// 	allowedHeaders: ["Content-Type", "Accept", 'Authorization']
+	// });
 
 	app.useLogger(new Logger());
 
