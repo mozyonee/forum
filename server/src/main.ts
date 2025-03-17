@@ -5,14 +5,14 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
-	// const configService = app.get(ConfigService);
+	const configService = app.get(ConfigService);
 
-	// app.enableCors({
-	// 	origin: configService.get<string>('CLIENT_URL'),
-	// 	methods: "GET,POST,PATCH,DELETE",
-	// 	allowedHeaders: ["Content-Type", "Accept", 'Authorization'],
-	// 	credentials: true
-	// });
+	app.enableCors({
+		origin: configService.get<string>('CLIENT_URL'),
+		methods: "GET,POST,PATCH,DELETE",
+		allowedHeaders: ["Content-Type", "Accept", 'Authorization'],
+		credentials: true
+	});
 
 	app.useLogger(new Logger());
 
