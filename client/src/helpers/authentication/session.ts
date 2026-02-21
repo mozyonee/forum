@@ -12,7 +12,7 @@ const cookie = {
 	duration: 24 * 60 * 60 * 1000
 } as const;
 
-const key = 'zujotnjscdktsuda';
+const key = process.env.SESSION_SECRET!;
 
 export async function encrypt(user: User) {
 
