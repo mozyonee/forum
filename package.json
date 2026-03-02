@@ -1,0 +1,25 @@
+{
+	"name": "@forum/root",
+	"private": true,
+	"version": "0.1.0",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"dev:client": "npm run dev -w apps/client",
+		"dev:server": "npm run dev -w apps/server",
+		"format": "npm run format --workspaces --if-present",
+		"tsc": "npm run typecheck --workspaces --if-present",
+		"build": "npm run build --workspaces --if-present",
+		"lint": "npm run lint --workspaces --if-present",
+		"test": "npm run test --workspaces --if-present",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"husky": "^9.1.7"
+	},
+	"dependencies": {
+		"class-transformer": "^0.5.1",
+		"rxjs": "^7.8.2"
+	}
+}

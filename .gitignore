@@ -1,7 +1,4 @@
-/client/.next
-/client/node_modules
-/client/*.env
-/server/dist
-/server/node_modules
-/server/*.env
-/database/mongodb_data
+node_modules
+.env*
+!.env.example
+database/mongodb_data
